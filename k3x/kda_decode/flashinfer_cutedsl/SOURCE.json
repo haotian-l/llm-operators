@@ -1,0 +1,218 @@
+{
+  "op": "kda_decode",
+  "impl": "flashinfer_cutedsl",
+  "lang": "cute-dsl",
+  "mode": "python",
+  "description": "flashinfer 的 KDA decode（CuTe DSL）：fused_kda_decode（vLLM 在 SM100/103 的第二选择，conv+递推+norm 全融合）、recurrent_kda（SGLang flashinfer backend）、packed_kda_decode；入口 kda_decode.py 是公共 API 和 cute-dsl / cake 后端选择",
+  "source": {
+    "submodule": "third_party/flashinfer",
+    "url": "https://github.com/flashinfer-ai/flashinfer.git",
+    "tag": "v0.7.1",
+    "commit": "0b46115d238d29ea2e92c6b9b2cb077d40fbc352"
+  },
+  "files": [
+    {
+      "path": "flashinfer/cute_dsl/availability.py",
+      "upstream": "flashinfer/cute_dsl/availability.py",
+      "upstream_sha256": "39d47171f5dc1c92d73290a5dfdc7c018da7fd2bcdee498b16547e6ea08bc024",
+      "sha256": "39d47171f5dc1c92d73290a5dfdc7c018da7fd2bcdee498b16547e6ea08bc024",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/cute_dsl/utils.py",
+      "upstream": "flashinfer/cute_dsl/utils.py",
+      "upstream_sha256": "971faf2b712c8d973cf7b81fdb97b12d04d0fb9ff350c314981c1049b3816a25",
+      "sha256": "971faf2b712c8d973cf7b81fdb97b12d04d0fb9ff350c314981c1049b3816a25",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/gdn_kernels/device_target.py",
+      "upstream": "flashinfer/gdn_kernels/device_target.py",
+      "upstream_sha256": "7e8390150de1d6e2348161145110dec292c3a8aec68e43f016287c7cddda8b17",
+      "sha256": "7e8390150de1d6e2348161145110dec292c3a8aec68e43f016287c7cddda8b17",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/gdn_kernels/dtype_compat.py",
+      "upstream": "flashinfer/gdn_kernels/dtype_compat.py",
+      "upstream_sha256": "2f0bf3bed90185aa8637c249243f58597d83f0af00c96143670da8ff46945114",
+      "sha256": "2f0bf3bed90185aa8637c249243f58597d83f0af00c96143670da8ff46945114",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/gdn_kernels/gdn_decode_bf16_wy_output_only.py",
+      "upstream": "flashinfer/gdn_kernels/gdn_decode_bf16_wy_output_only.py",
+      "upstream_sha256": "bb8a676ed9f488ac041b44e0dce4ee02fd7dffd59bcf6b4f6327906fc1c6e9c5",
+      "sha256": "bb8a676ed9f488ac041b44e0dce4ee02fd7dffd59bcf6b4f6327906fc1c6e9c5",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_decode.py",
+      "upstream": "flashinfer/kda_decode.py",
+      "upstream_sha256": "193de02c236cb11336fcf4fc37fe5bc98b2b7dd8f0f4c9729411402e9c07257a",
+      "sha256": "193de02c236cb11336fcf4fc37fe5bc98b2b7dd8f0f4c9729411402e9c07257a",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/__init__.py",
+      "upstream": "flashinfer/kda_kernels/__init__.py",
+      "upstream_sha256": "cb1f2a64f2d1c745c5c3a65e851c2118e8b316bcbc1adfb816586d2026af33a0",
+      "sha256": "cb1f2a64f2d1c745c5c3a65e851c2118e8b316bcbc1adfb816586d2026af33a0",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/cake_packed_kda_decode.py",
+      "upstream": "flashinfer/kda_kernels/cake_packed_kda_decode.py",
+      "upstream_sha256": "e1f76876370f0817b9a678c8854643c7692c9a26ab7f37f51fa2e6844cd5133b",
+      "sha256": "e1f76876370f0817b9a678c8854643c7692c9a26ab7f37f51fa2e6844cd5133b",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/fused_kda_decode.py",
+      "upstream": "flashinfer/kda_kernels/fused_kda_decode.py",
+      "upstream_sha256": "4af1a30ceaeafacb0c970514054e84809f747ac33e15bbbbcab2b3bad62620ed",
+      "sha256": "4af1a30ceaeafacb0c970514054e84809f747ac33e15bbbbcab2b3bad62620ed",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/fused_kda_decode_multitoken.py",
+      "upstream": "flashinfer/kda_kernels/fused_kda_decode_multitoken.py",
+      "upstream_sha256": "59a0a0f1b0776dd6b30ca4524344bc958c6e43cfb437fb749974f6ba65edbd7e",
+      "sha256": "59a0a0f1b0776dd6b30ca4524344bc958c6e43cfb437fb749974f6ba65edbd7e",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/kda_decode_wy_output_only.py",
+      "upstream": "flashinfer/kda_kernels/kda_decode_wy_output_only.py",
+      "upstream_sha256": "d7ea7ac19bbbdd76b4f1b936601e5ace7570e79111099b9cc19d87885812c705",
+      "sha256": "d7ea7ac19bbbdd76b4f1b936601e5ace7570e79111099b9cc19d87885812c705",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/packed_kda_decode_cute.py",
+      "upstream": "flashinfer/kda_kernels/packed_kda_decode_cute.py",
+      "upstream_sha256": "d003d4509ab7bdbb6487e7baa45edd2666e1fc4faced861ad10653bd17bc114a",
+      "sha256": "d003d4509ab7bdbb6487e7baa45edd2666e1fc4faced861ad10653bd17bc114a",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/recurrent_kda.py",
+      "upstream": "flashinfer/kda_kernels/recurrent_kda.py",
+      "upstream_sha256": "710136da7c8c67432ecb429c70ad706732f9af9366d18970d3ca72923c28f811",
+      "sha256": "710136da7c8c67432ecb429c70ad706732f9af9366d18970d3ca72923c28f811",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/sm120_prefill/__init__.py",
+      "upstream": "flashinfer/kda_kernels/sm120_prefill/__init__.py",
+      "upstream_sha256": "b16d6c67448096b603691ac69e9d0d652fc0e566a75eaedf42e540c51f6b2472",
+      "sha256": "b16d6c67448096b603691ac69e9d0d652fc0e566a75eaedf42e540c51f6b2472",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/sm120_prefill/decomp.py",
+      "upstream": "flashinfer/kda_kernels/sm120_prefill/decomp.py",
+      "upstream_sha256": "3e90a9f718a3e2484fb1777c394a9dfee9e50fbf489d267786f672611b3b400f",
+      "sha256": "3e90a9f718a3e2484fb1777c394a9dfee9e50fbf489d267786f672611b3b400f",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/sm120_prefill/fused.py",
+      "upstream": "flashinfer/kda_kernels/sm120_prefill/fused.py",
+      "upstream_sha256": "7ea9f63e7107c8ab881dc51e1b9403b85277f29ca04a3ba3002252e0f598fe08",
+      "sha256": "7ea9f63e7107c8ab881dc51e1b9403b85277f29ca04a3ba3002252e0f598fe08",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/kda_kernels/sm120_prefill/runtime.py",
+      "upstream": "flashinfer/kda_kernels/sm120_prefill/runtime.py",
+      "upstream_sha256": "3dad2cfcbbbb6d97ee138c07fecb6f04a68a6c3120fc3fc5c9e5172b92b4d87b",
+      "sha256": "3dad2cfcbbbb6d97ee138c07fecb6f04a68a6c3120fc3fc5c9e5172b92b4d87b",
+      "modified": null
+    },
+    {
+      "path": "flashinfer/norm/utils.py",
+      "upstream": "flashinfer/norm/utils.py",
+      "upstream_sha256": "3f44ac6727c58883420068bf0aa5b239b12d2e86819ad80e54bc1bc016ec881a",
+      "sha256": "3f44ac6727c58883420068bf0aa5b239b12d2e86819ad80e54bc1bc016ec881a",
+      "modified": null
+    }
+  ],
+  "stubs": [
+    {
+      "path": "flashinfer/api_logging.py",
+      "stub": "k3x/_stubs/flashinfer_api_logging.py",
+      "reason": "上游 flashinfer_api 负责 API 日志和 FlashInfer-Bench trace 采集；副本里是恒等装饰器。",
+      "sha256": "cc018a9c1bdd931aea8950781dcc575a9e72b5644a7db1c02451c52534f4883d"
+    },
+    {
+      "path": "flashinfer/jit/cake_flash_kda_packed_t1.py",
+      "stub": "k3x/_stubs/flashinfer_cake_off.py",
+      "reason": "Cake / FlashKDA 后端是 csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），经 flashinfer.jit 构建；副本只保留 CuTe DSL 路径。",
+      "sha256": "799044e84f4779f81022fc02b4a1dffe939c59a3182f62875c201c47d3f97d36"
+    },
+    {
+      "path": "flashinfer/jit/cake_fused_kda_decode.py",
+      "stub": "k3x/_stubs/flashinfer_cake_off.py",
+      "reason": "Cake / FlashKDA 后端是 csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），经 flashinfer.jit 构建；副本只保留 CuTe DSL 路径。",
+      "sha256": "799044e84f4779f81022fc02b4a1dffe939c59a3182f62875c201c47d3f97d36"
+    },
+    {
+      "path": "flashinfer/jit/cake_kda_decode.py",
+      "stub": "k3x/_stubs/flashinfer_cake_off.py",
+      "reason": "Cake / FlashKDA 后端是 csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），经 flashinfer.jit 构建；副本只保留 CuTe DSL 路径。",
+      "sha256": "799044e84f4779f81022fc02b4a1dffe939c59a3182f62875c201c47d3f97d36"
+    },
+    {
+      "path": "flashinfer/jit/cake_kda_packed_t1.py",
+      "stub": "k3x/_stubs/flashinfer_cake_off.py",
+      "reason": "Cake / FlashKDA 后端是 csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），经 flashinfer.jit 构建；副本只保留 CuTe DSL 路径。",
+      "sha256": "799044e84f4779f81022fc02b4a1dffe939c59a3182f62875c201c47d3f97d36"
+    },
+    {
+      "path": "flashinfer/jit/cpp_ext.py",
+      "stub": "k3x/_stubs/flashinfer_cpp_ext.py",
+      "reason": "上游 flashinfer/jit/cpp_ext.py 是 nvcc/ninja 构建工具；KDA kernel 只用到 is_cuda_version_at_least，这里按 torch 编译时的 CUDA 版本判断。",
+      "sha256": "213b931c1068d6e3dc530d63e82a0bf55003c85f302c258a8639d2680e21d882"
+    },
+    {
+      "path": "flashinfer/jit/cute_dsl_core.py",
+      "stub": "k3x/_stubs/flashinfer_cute_dsl_core.py",
+      "reason": "上游 build_and_load_cute_dsl_kernel 带磁盘缓存并牵出 flashinfer.jit 框架；副本只在进程内缓存，直接调用 compile_fn。",
+      "sha256": "59d82ec08b824d56988046c6e3552b550b4a3292e9f28667c76ff9829a10d3b8"
+    },
+    {
+      "path": "flashinfer/jit/flash_kda_decode.py",
+      "stub": "k3x/_stubs/flashinfer_cake_off.py",
+      "reason": "Cake / FlashKDA 后端是 csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），经 flashinfer.jit 构建；副本只保留 CuTe DSL 路径。",
+      "sha256": "799044e84f4779f81022fc02b4a1dffe939c59a3182f62875c201c47d3f97d36"
+    },
+    {
+      "path": "flashinfer/trace/templates/kda.py",
+      "stub": "k3x/_stubs/flashinfer_trace_kda.py",
+      "reason": "上游是 KDA 的 FlashInfer-Bench TraceTemplate（op_type=\"kda\"）；副本里只作占位，原文见 third_party/flashinfer/flashinfer/trace/templates/kda.py。",
+      "sha256": "59049374f678d5e8dcd8d2b8f6d2ba6837df582eef75c0ee0ea7a56140c1e116"
+    },
+    {
+      "path": "flashinfer/utils.py",
+      "stub": "k3x/_stubs/flashinfer_utils.py",
+      "reason": "上游 flashinfer/utils.py 会牵出 flashinfer 的 JIT 和库加载；KDA kernel 只用到 get_compute_capability，语义照抄上游。",
+      "sha256": "942c62b8b395e3df13b1471b1dc785ad268b0cfce6d9dafbc226c400463db3f3"
+    }
+  ],
+  "generated": [
+    "flashinfer/__init__.py",
+    "flashinfer/cute_dsl/__init__.py",
+    "flashinfer/gdn_kernels/__init__.py",
+    "flashinfer/jit/__init__.py",
+    "flashinfer/norm/__init__.py",
+    "flashinfer/trace/__init__.py",
+    "flashinfer/trace/templates/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [
+    "Cake / FlashKDA 后端是 third_party/flashinfer/csrc/kda 下 400 多个生成的 CUDA 变体（约 76 MB），没有抽取；副本里这些分支会报错，fused_kda_decode 的默认 backend 本来就是 cute-dsl",
+    "CuTe DSL kernel 原本经 flashinfer.jit 做磁盘缓存，副本改为进程内缓存"
+  ],
+  "import_prefix": "k3x.kda_decode.flashinfer_cutedsl.flashinfer"
+}

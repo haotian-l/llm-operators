@@ -1,0 +1,9 @@
+# Mac 开发环境：生成 shape/cost 表，在 CPU 上跑小 shape 的 reference。
+# uv venv --python 3.12 .venv && uv pip install -r requirements/base.txt && uv pip install -e .
+numpy
+pyyaml>=6
+pandas
+matplotlib
+pydantic>=2
+pytest
+torch

@@ -1,0 +1,81 @@
+{
+  "op": "kda_decode",
+  "impl": "sglang_triton",
+  "lang": "triton",
+  "mode": "python",
+  "description": "SGLang 的 Triton KDA decode kernel。K3 有 gate lower bound，Triton backend 不支持带 lower bound 的 packed decode，所以 K3 实际走 fused_sigmoid_gating_recurrent.py 的 fused_sigmoid_gating_delta_rule_update；fused_recurrent.py 里的 packed 变体给无 lower bound 的模型用",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "sglang/kernels/ops/attention/fla/fused_recurrent.py",
+      "upstream": "python/sglang/kernels/ops/attention/fla/fused_recurrent.py",
+      "upstream_sha256": "d322d80e6e639fc002c3f3dc4f5eafc5a49c9d4d1ee20470e432ccb6b85b245c",
+      "sha256": "8097e8336a37d4cbe11ba5358876931ae967087bc0b33a4a11686f36c837f7f3",
+      "modified": "import 前缀 sglang -> k3x.kda_decode.sglang_triton.sglang（3 行）"
+    },
+    {
+      "path": "sglang/kernels/ops/attention/fla/fused_sigmoid_gating_recurrent.py",
+      "upstream": "python/sglang/kernels/ops/attention/fla/fused_sigmoid_gating_recurrent.py",
+      "upstream_sha256": "bce8b1d8409befd86bb76185c85c0a1ffa81abb71d2285d3593a73960abd9f72",
+      "sha256": "630188ed36a9f5decbc1405def55db7a11c6b1101a072f5b188300e6a4f58ad7",
+      "modified": "import 前缀 sglang -> k3x.kda_decode.sglang_triton.sglang（2 行）"
+    },
+    {
+      "path": "sglang/kernels/ops/attention/fla/op.py",
+      "upstream": "python/sglang/kernels/ops/attention/fla/op.py",
+      "upstream_sha256": "592dc573983a1a20a00e1cea3b2d5a2a43ec8881d6bb45ad7a1f1faebb1cb7d0",
+      "sha256": "35772741700a20e3c7c38e7596728951e8aae8943168c739ba9685109e20b2a0",
+      "modified": "import 前缀 sglang -> k3x.kda_decode.sglang_triton.sglang（1 行）"
+    },
+    {
+      "path": "sglang/kernels/ops/attention/fla/utils.py",
+      "upstream": "python/sglang/kernels/ops/attention/fla/utils.py",
+      "upstream_sha256": "a68e3e5994426250e58fec33033647a8d5bb9cd64865dca4cb9d16f33c0155f8",
+      "sha256": "0eb8c03268cce7148be05d9fb999af2d58b3253ba95bc77593eb593baae3aaef",
+      "modified": "import 前缀 sglang -> k3x.kda_decode.sglang_triton.sglang（1 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "sglang/kernels/jit/utils/__init__.py",
+      "stub": "k3x/_stubs/sglang_jit_utils.py",
+      "reason": "上游 sglang.kernels.jit.utils 是 tvm-ffi JIT 编译框架；这里只需要 is_arch_support_pdl（非 HIP 且 arch major >= 9）。",
+      "sha256": "49df2adac4564bb17305580e172c46fcaac5886c711f6c3f5e543de2b5d92c83"
+    },
+    {
+      "path": "sglang/kernels/ops/attention/kda_packed_decode.py",
+      "stub": "k3x/_stubs/sglang_kda_packed_decode_off.py",
+      "reason": "上游这里会转去 CUDA 的 kda_packed_decode 并牵出 JIT 加载器；CUDA 版本单独抽取在 sglang_cuda，副本始终走 Triton。",
+      "sha256": "1db7ef758d7ca3193a2a6bf7e95716c3c26d89ab6b950e6b5c6454b9ab4fbe46"
+    },
+    {
+      "path": "sglang/srt/utils/__init__.py",
+      "stub": "k3x/_stubs/sglang_srt_utils.py",
+      "reason": "上游 sglang/srt/utils/__init__.py 会牵出整个 sglang.srt；这里只保留 kernel 文件用到的平台探测函数，语义照抄上游。",
+      "sha256": "06ac0fb5479c7fb7baa245b3e9f228e32a9b050cb239c2188ff06cb95ba9b202"
+    },
+    {
+      "path": "sglang/srt/utils/common.py",
+      "stub": "k3x/_stubs/sglang_srt_utils_common.py",
+      "reason": "上游 sglang/srt/utils/common.py 有几千行并牵出整个 sglang.srt；这里只需要 torch_release（逐字照抄上游定义）。",
+      "sha256": "c8dcb8b0233d3cfa80e97808edc127a8bd6be1cfabf0c35d0b3404cde862e5fc"
+    }
+  ],
+  "generated": [
+    "sglang/__init__.py",
+    "sglang/kernels/__init__.py",
+    "sglang/kernels/jit/__init__.py",
+    "sglang/kernels/ops/__init__.py",
+    "sglang/kernels/ops/attention/__init__.py",
+    "sglang/kernels/ops/attention/fla/__init__.py",
+    "sglang/srt/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.kda_decode.sglang_triton.sglang"
+}

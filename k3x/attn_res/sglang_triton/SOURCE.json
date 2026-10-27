@@ -1,0 +1,78 @@
+{
+  "op": "attn_res",
+  "impl": "sglang_triton",
+  "lang": "triton",
+  "mode": "python",
+  "description": "SGLang 的 AttnRes 层：Triton 两段式（_score_kernel 打分 + _combine_kernel 混合）和分发逻辑；SM10x/SM11x 且 H=7168 时改走 TMA CUDA 快速路径（见 sglang_cuda）",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "sglang/srt/layers/attn_residual.py",
+      "upstream": "python/sglang/srt/layers/attn_residual.py",
+      "upstream_sha256": "411e513ecab5a3e81dec39933a8854a89a775f61fe5e3a508109ee0607d06515",
+      "sha256": "e98c4d678f4633a4dd6412c8dd45e7527043d80dfc2c435532312e9cb71a0016",
+      "modified": "import 前缀 sglang -> k3x.attn_res.sglang_triton.sglang（8 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "sglang/kernels/ops/attention/attn_res.py",
+      "stub": "k3x/_stubs/sglang_attn_res_tma_off.py",
+      "reason": "上游这里是 TMA 快速路径的 tvm-ffi JIT 封装（会牵出 JIT 加载器）；CUDA 源码单独抽取在 attn_res/sglang_cuda。",
+      "sha256": "7e501b3407cf655e96f589bbcd9f0134a2e609d13cae5fca6d578dfd26b085b9"
+    },
+    {
+      "path": "sglang/kernels/ops/attention/attn_res_hip.py",
+      "stub": "k3x/_stubs/sglang_attn_res_hip_off.py",
+      "reason": "AMD ROCm 的 AttnRes 路径不在研读范围内。",
+      "sha256": "edd2692ef2ad17ccfbd000865eb3c8c4a928e373b99b42dbb605fa788a74dbfc"
+    },
+    {
+      "path": "sglang/srt/layers/communication/k3_sp_collective.py",
+      "stub": "k3x/_stubs/sglang_k3_sp_collective_off.py",
+      "reason": "序列并行下 AttnRes 的 all-gather / reduce-scatter 需要多卡通信组，研读副本只保留单卡路径。",
+      "sha256": "4d6c553451182612a6eb4f4619a2936e6f345177b2752b40a50b52ed3657a616"
+    },
+    {
+      "path": "sglang/srt/layers/layernorm.py",
+      "stub": "k3x/_stubs/sglang_layernorm.py",
+      "reason": "上游 RMSNorm 带多种 kernel 后端并牵出 sglang.srt；副本用纯 PyTorch 版本，只保留 weight、variance_epsilon 和 forward。",
+      "sha256": "442dece340a36e33ac34e8c3961f7c983435e2cb1dbf6b87f74bfe1df00ad8ed"
+    },
+    {
+      "path": "sglang/srt/layers/linear.py",
+      "stub": "k3x/_stubs/sglang_linear.py",
+      "reason": "上游 ReplicatedLinear 带量化和权重加载逻辑并牵出 sglang.srt；AttnRes 只读它的 weight，副本只保留这个参数。",
+      "sha256": "20129ff6cf8836c8d8e7f62640b5521e494f4f41bfe25dcd24af853c3892ec4d"
+    },
+    {
+      "path": "sglang/srt/utils/__init__.py",
+      "stub": "k3x/_stubs/sglang_srt_utils.py",
+      "reason": "上游 sglang/srt/utils/__init__.py 会牵出整个 sglang.srt；这里只保留 kernel 文件用到的平台探测函数，语义照抄上游。",
+      "sha256": "06ac0fb5479c7fb7baa245b3e9f228e32a9b050cb239c2188ff06cb95ba9b202"
+    },
+    {
+      "path": "sglang/srt/utils/common.py",
+      "stub": "k3x/_stubs/sglang_srt_utils_common.py",
+      "reason": "上游 sglang/srt/utils/common.py 有几千行并牵出整个 sglang.srt；这里只需要 torch_release（逐字照抄上游定义）。",
+      "sha256": "c8dcb8b0233d3cfa80e97808edc127a8bd6be1cfabf0c35d0b3404cde862e5fc"
+    }
+  ],
+  "generated": [
+    "sglang/__init__.py",
+    "sglang/kernels/__init__.py",
+    "sglang/kernels/ops/__init__.py",
+    "sglang/kernels/ops/attention/__init__.py",
+    "sglang/srt/__init__.py",
+    "sglang/srt/layers/__init__.py",
+    "sglang/srt/layers/communication/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.attn_res.sglang_triton.sglang"
+}

@@ -1,0 +1,6 @@
+# 两个引擎环境都装的工具。setup_env.sh 会以引擎装完后的 pip freeze 作为 constraints 安装，
+# 保证不改动引擎锁定的 torch / flashinfer。
+#
+# PyPI 上的 flashinfer-bench 0.1.2 是 2026-02 的旧版，这里从 git 锁定 commit 安装。
+flashinfer-bench @ git+https://github.com/flashinfer-ai/flashinfer-bench.git@15618a67e8d7b7f49ca61b5ba3b9f26a876d0bee
+nsight-python==1.1.0

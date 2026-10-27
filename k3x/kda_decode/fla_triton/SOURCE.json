@@ -1,0 +1,97 @@
+{
+  "op": "kda_decode",
+  "impl": "fla_triton",
+  "lang": "triton",
+  "mode": "python",
+  "description": "FLA fused_recurrent_kda（Triton）：HF modeling 代码在 decode 时调用的就是它；vLLM 的 triton 回退路径是它的 vendored 副本",
+  "source": {
+    "submodule": "third_party/flash-linear-attention",
+    "url": "https://github.com/fla-org/flash-linear-attention.git",
+    "tag": "v0.6.0",
+    "commit": "413ad2c655ece57b94bc9ddc51fdbd43cf09d984"
+  },
+  "files": [
+    {
+      "path": "fla/ops/kda/fused_recurrent.py",
+      "upstream": "fla/ops/kda/fused_recurrent.py",
+      "upstream_sha256": "37fed62f57152473d8f305cd45cf86864e69c27a5325d695ab7d4adefd10d0db",
+      "sha256": "33062261d5c31d240c9707406d0bca22ce8fac40c819ed3a5c9ea2f6b1e310f2",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（4 行）"
+    },
+    {
+      "path": "fla/ops/utils/op.py",
+      "upstream": "fla/ops/utils/op.py",
+      "upstream_sha256": "18cfb14ed285d6f4cc664b2d7e2e471d322fc897594eb13c61d179978bc50d0f",
+      "sha256": "cb6b0e16bd924c5b32fbf71a6160995aaa43d9c43a96b55991d5c1c1e320b43c",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（1 行）"
+    },
+    {
+      "path": "fla/ops/utils/softplus.py",
+      "upstream": "fla/ops/utils/softplus.py",
+      "upstream_sha256": "b36b5796abf6a75e216dd60aedb2804b16290c1a7dac75c91fc84b7ed72266f2",
+      "sha256": "d84e8fc8c4e0dc32748bd3b4044957241dd4fe0a116e8d60840db743d287dedf",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/__init__.py",
+      "upstream": "fla/utils/__init__.py",
+      "upstream_sha256": "faf4ad68120774f1c5735f529884f4ee639caf5e0f6403e210b1c1ef8c6840a1",
+      "sha256": "9c93e1238e29281270ede68e652cfd11a912728ceb006fff71427a594b80f43c",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（4 行）"
+    },
+    {
+      "path": "fla/utils/decorators.py",
+      "upstream": "fla/utils/decorators.py",
+      "upstream_sha256": "2aceb321ef16e942a67e7b675e40bd6c0d0496a898fd201c669729d496de6e9a",
+      "sha256": "e0045f58fb383d05eada764c0b27e9bd837a31c6e93ae883b68f8111ff681b36",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（3 行）"
+    },
+    {
+      "path": "fla/utils/env.py",
+      "upstream": "fla/utils/env.py",
+      "upstream_sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "modified": null
+    },
+    {
+      "path": "fla/utils/hardware.py",
+      "upstream": "fla/utils/hardware.py",
+      "upstream_sha256": "5203bcd38df89f94419ef0a00f1bfa823894ba8521075282ca59288be43a7ae3",
+      "sha256": "a548692972b3afdf62906e704115f926ef8aa25d21d3ea4b35cb081f15af7ba6",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/testing.py",
+      "upstream": "fla/utils/testing.py",
+      "upstream_sha256": "a7901e2417db8e5c9e786fb4483683e818875e783a43e57473771f017cb7466b",
+      "sha256": "1223d01ea69102781aaec1ea8c9fb5f02328c6496e58626cd631f21deec89b9d",
+      "modified": "import 前缀 fla -> k3x.kda_decode.fla_triton.fla（1 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "fla/__init__.py",
+      "stub": "k3x/_stubs/fla_init.py",
+      "reason": "上游 fla/__init__.py 会按字符串 import fla.layers / fla.models（改名后会误加载已安装的 fla）；副本只需要 __version__。",
+      "sha256": "09f04ff71e3ee3ac726e8dc4ad803ae57d6729b6a92f997b5f17496008cd973d"
+    },
+    {
+      "path": "fla/backends.py",
+      "stub": "k3x/_stubs/fla_backends.py",
+      "reason": "上游的运行时后端分发会按字符串动态 import fla.ops.<op>.backends；研读副本只保留默认实现，dispatch 是恒等。",
+      "sha256": "05de16f602a9055f401991061aa140fdf04d2af099af376a71431b3211e75971"
+    }
+  ],
+  "generated": [
+    "fla/ops/__init__.py",
+    "fla/ops/kda/__init__.py",
+    "fla/ops/utils/__init__.py"
+  ],
+  "warnings": [
+    "源码里有字符串形式的 fla.* 模块名（可能是动态 import），未改写：['fla.utils']"
+  ],
+  "notes": [
+    "fla/utils/decorators.py 里的 sys.modules.get('fla.utils') 只用来读 tensor_cache 的开关，decode 路径不经过，保持原样"
+  ],
+  "import_prefix": "k3x.kda_decode.fla_triton.fla"
+}

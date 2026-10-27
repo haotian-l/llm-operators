@@ -1,0 +1,102 @@
+{
+  "name": "grouped_gemm_mxfp8_mxfp4_g4_n2048_k2048",
+  "description": "Groupwise MXFP8 x MXFP4 GEMM (4 equal groups, N=2048, K=2048). A is MXFP8 (float8_e4m3fn + UE8M0 per-32 block scale), B is per-group MXFP4 (packed E2M1 + UE8M0 per-32 block scale). Groups are concatenated along M with boundaries in m_indptr. Reference dequantizes per group and matmuls; the kernel is exact against it.",
+  "op_type": "gemm",
+  "tags": [
+    "status:verified",
+    "quantization:float4_e2m1fn_mxfp4",
+    "quantization:float8_e4m3fn",
+    "fi_api:flashinfer.group_gemm_mxfp4_nt_groupwise",
+    "gpu:sm100"
+  ],
+  "axes": {
+    "M": {
+      "type": "var",
+      "description": "Total tokens across all groups (G*m)."
+    },
+    "G": {
+      "type": "const",
+      "value": 4,
+      "description": "Number of groups."
+    },
+    "Gp1": {
+      "type": "const",
+      "value": 5,
+      "description": "G+1 (m_indptr length)."
+    },
+    "N": {
+      "type": "const",
+      "value": 2048,
+      "description": "Output columns per group."
+    },
+    "K": {
+      "type": "const",
+      "value": 2048,
+      "description": "Reduction dimension."
+    },
+    "K_half": {
+      "type": "const",
+      "value": 1024,
+      "description": "Packed K for B (2 fp4/byte)."
+    },
+    "K_blocks": {
+      "type": "const",
+      "value": 64,
+      "description": "K/32 block-scale count."
+    }
+  },
+  "inputs": {
+    "a_fp8": {
+      "shape": [
+        "M",
+        "K"
+      ],
+      "dtype": "float8_e4m3fn",
+      "description": "MXFP8 activations (all groups concatenated)."
+    },
+    "a_scale": {
+      "shape": [
+        "M",
+        "K_blocks"
+      ],
+      "dtype": "int8",
+      "description": "UE8M0 per-32 block scales for A (uint8 bytes)."
+    },
+    "b_fp4": {
+      "shape": [
+        "G",
+        "N",
+        "K_half"
+      ],
+      "dtype": "int8",
+      "description": "Per-group packed E2M1 weights."
+    },
+    "b_scale": {
+      "shape": [
+        "G",
+        "N",
+        "K_blocks"
+      ],
+      "dtype": "int8",
+      "description": "Per-group UE8M0 block scales for B."
+    },
+    "m_indptr": {
+      "shape": [
+        "Gp1"
+      ],
+      "dtype": "int32",
+      "description": "Group row boundaries (length G+1)."
+    }
+  },
+  "outputs": {
+    "C": {
+      "shape": [
+        "M",
+        "N"
+      ],
+      "dtype": "bfloat16",
+      "description": "Concatenated per-group C = A_g @ B_g.T."
+    }
+  },
+  "reference": "import torch\n\ndef _dequant_e2m1(x_u8):\n    r1 = x_u8 % 16\n    r2 = x_u8 // 16\n    raw = torch.stack([r1, r2], dim=-1).flatten(start_dim=-2)\n    sign = raw // 8\n    v = raw % 8\n    e = v // 2\n    mant = v % 2\n    mask = (e > 0).float()\n    log_q = e - mask\n    m_scaled = mant + mask * 2\n    dab = m_scaled / 2 * torch.exp2(log_q)\n    return (0.5 - sign) * 2 * dab\n\n\ndef run(a_fp8, a_scale, b_fp4, b_scale, m_indptr):\n    # Groupwise MXFP8(A) x MXFP4(B) GEMM. Per group g (rows m_indptr[g]:m_indptr[g+1]),\n    # dequantize FP8 A and E2M1 B with UE8M0 (bias 127) per-32 block scales, then matmul.\n    G = b_fp4.shape[0]\n    n = b_fp4.shape[1]\n    k = b_fp4.shape[2] * 2\n    tile = 32\n    a_sc = a_scale.view(torch.uint8)\n    b_fp4u = b_fp4.view(torch.uint8)\n    b_sc = b_scale.view(torch.uint8)\n    idx = m_indptr.tolist()\n    out = torch.empty(a_fp8.shape[0], n, device=a_fp8.device, dtype=torch.bfloat16)\n    for g in range(G):\n        s, e = idx[g], idx[g + 1]\n        A = a_fp8[s:e].float()\n        m = e - s\n        B = _dequant_e2m1(b_fp4u[g])\n        A = (A.view(m, k // tile, tile) * torch.exp2(a_sc[s:e].float() - 127).unsqueeze(-1)).reshape(m, k)[:, :k]\n        B = (B.view(n, k // tile, tile) * torch.exp2(b_sc[g].float() - 127).unsqueeze(-1)).reshape(n, k)[:, :k]\n        out[s:e] = (A @ B.t()).to(torch.bfloat16)\n    return out\n"
+}

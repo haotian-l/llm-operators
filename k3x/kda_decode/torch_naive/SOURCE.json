@@ -1,0 +1,31 @@
+{
+  "op": "kda_decode",
+  "impl": "torch_naive",
+  "lang": "pytorch",
+  "mode": "python",
+  "description": "FLA 的纯 PyTorch 逐 token 递推（naive_recurrent_kda），可在 CPU 上跑，作为数值参考",
+  "source": {
+    "submodule": "third_party/flash-linear-attention",
+    "url": "https://github.com/fla-org/flash-linear-attention.git",
+    "tag": "v0.6.0",
+    "commit": "413ad2c655ece57b94bc9ddc51fdbd43cf09d984"
+  },
+  "files": [
+    {
+      "path": "fla/ops/kda/naive.py",
+      "upstream": "fla/ops/kda/naive.py",
+      "upstream_sha256": "60a32285d4b67068ff633b48bbe8ab31028066d24f00d27e12199a88fc73f016",
+      "sha256": "60a32285d4b67068ff633b48bbe8ab31028066d24f00d27e12199a88fc73f016",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [
+    "fla/__init__.py",
+    "fla/ops/__init__.py",
+    "fla/ops/kda/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.kda_decode.torch_naive.fla"
+}

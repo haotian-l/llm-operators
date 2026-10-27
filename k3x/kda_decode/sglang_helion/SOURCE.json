@@ -1,0 +1,39 @@
+{
+  "op": "kda_decode",
+  "impl": "sglang_helion",
+  "lang": "helion",
+  "mode": "python",
+  "description": "SGLang 的 Helion KDA decode kernel，--linear-attn-decode-backend helion 时使用",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "sglang/kernels/ops/attention/helion/__init__.py",
+      "upstream": "python/sglang/kernels/ops/attention/helion/__init__.py",
+      "upstream_sha256": "307fa361ccc4a4eb6347d5d3ca1199a17be821efa55511946609af5e763e8953",
+      "sha256": "307fa361ccc4a4eb6347d5d3ca1199a17be821efa55511946609af5e763e8953",
+      "modified": null
+    },
+    {
+      "path": "sglang/kernels/ops/attention/helion/kda_decode.py",
+      "upstream": "python/sglang/kernels/ops/attention/helion/kda_decode.py",
+      "upstream_sha256": "a6ef8244d9c9a87f5c090429fe611350f275f71bb51400f97ab33f3ee28776ca",
+      "sha256": "8b5eb10aec7c870cec54c5a54a48a17f600631b0b297ebdaf6104a6cc2e55731",
+      "modified": "import 前缀 sglang -> k3x.kda_decode.sglang_helion.sglang（1 行）"
+    }
+  ],
+  "stubs": [],
+  "generated": [
+    "sglang/__init__.py",
+    "sglang/kernels/__init__.py",
+    "sglang/kernels/ops/__init__.py",
+    "sglang/kernels/ops/attention/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.kda_decode.sglang_helion.sglang"
+}

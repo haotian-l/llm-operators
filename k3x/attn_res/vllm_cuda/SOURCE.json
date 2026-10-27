@@ -1,0 +1,60 @@
+{
+  "op": "attn_res",
+  "impl": "vllm_cuda",
+  "lang": "cuda",
+  "mode": "cpp",
+  "description": "vLLM 的 kimi_k3_attn_res（CUDA）：SM10x、hidden=7168、num_blocks<=8 时替代 Triton 版",
+  "source": {
+    "submodule": "third_party/vllm",
+    "url": "https://github.com/vllm-project/vllm.git",
+    "tag": "v0.32.0",
+    "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be"
+  },
+  "files": [
+    {
+      "path": "kimi_k3/attn_res_kernel.cu",
+      "upstream": "csrc/kimi_k3/attn_res_kernel.cu",
+      "upstream_sha256": "ff42d7d0e7e6eefdf9250630aed1bd298f107a02fd82c2fb12380e12ed9a1e56",
+      "sha256": "ff42d7d0e7e6eefdf9250630aed1bd298f107a02fd82c2fb12380e12ed9a1e56",
+      "modified": null
+    },
+    {
+      "path": "ops.h",
+      "upstream": "csrc/ops.h",
+      "upstream_sha256": "fb9bf4953f239ccbfdb72069b1117278518af382bcac4b7f6069ad1db2b6270b",
+      "sha256": "fb9bf4953f239ccbfdb72069b1117278518af382bcac4b7f6069ad1db2b6270b",
+      "modified": null
+    },
+    {
+      "path": "torch_utils.h",
+      "upstream": "csrc/torch_utils.h",
+      "upstream_sha256": "f619e1943039a67a3254f7e0679e1f3e0faa9d8fccae795f3b20df9e91a8a429",
+      "sha256": "f619e1943039a67a3254f7e0679e1f3e0faa9d8fccae795f3b20df9e91a8a429",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [],
+  "warnings": [],
+  "notes": [
+    "op schema 在 third_party/vllm/csrc/torch_bindings.cpp（搜 kimi_k3_attn_res）",
+    "ops.h 只为了看函数声明；独立编译的胶水代码尚未编写"
+  ],
+  "external_includes": [
+    "cfloat",
+    "cstdint",
+    "cstdio",
+    "cublas_v2.h",
+    "cuda_runtime.h",
+    "deque",
+    "mutex",
+    "string",
+    "torch/csrc/inductor/aoti_torch/c/shim.h",
+    "torch/csrc/stable/accelerator.h",
+    "torch/csrc/stable/ops.h",
+    "torch/csrc/stable/tensor.h",
+    "torch/headeronly/util/shim_utils.h",
+    "type_traits",
+    "vector"
+  ]
+}

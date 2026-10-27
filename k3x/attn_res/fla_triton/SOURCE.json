@@ -1,0 +1,95 @@
+{
+  "op": "attn_res",
+  "impl": "fla_triton",
+  "lang": "triton",
+  "mode": "python",
+  "description": "FLA fused_attnres（Triton）：前向和反向 kernel，残差源以指针表传入（不需要先 stack）",
+  "source": {
+    "submodule": "third_party/flash-linear-attention",
+    "url": "https://github.com/fla-org/flash-linear-attention.git",
+    "tag": "v0.6.0",
+    "commit": "413ad2c655ece57b94bc9ddc51fdbd43cf09d984"
+  },
+  "files": [
+    {
+      "path": "fla/ops/attnres/fused.py",
+      "upstream": "fla/ops/attnres/fused.py",
+      "upstream_sha256": "21045c2ee7416f5fcd35e6b4333682757844b7b5e8ef983ef2c5fbca917bb4c2",
+      "sha256": "366fa7feb1e72b7388e532776a84cc0b0359166d00d3d28f9a271a693401d1bb",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（4 行）"
+    },
+    {
+      "path": "fla/ops/utils/cache.py",
+      "upstream": "fla/ops/utils/cache.py",
+      "upstream_sha256": "a8ffda1ca609efaf366207a87ad5002253d39fd4b5e1fd9446345245d110e6f9",
+      "sha256": "a8ffda1ca609efaf366207a87ad5002253d39fd4b5e1fd9446345245d110e6f9",
+      "modified": null
+    },
+    {
+      "path": "fla/ops/utils/op.py",
+      "upstream": "fla/ops/utils/op.py",
+      "upstream_sha256": "18cfb14ed285d6f4cc664b2d7e2e471d322fc897594eb13c61d179978bc50d0f",
+      "sha256": "2531f8a8caa9a9930cc733b0a7dbade253f206fb4c935aeee2037a6bb4f39207",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/__init__.py",
+      "upstream": "fla/utils/__init__.py",
+      "upstream_sha256": "faf4ad68120774f1c5735f529884f4ee639caf5e0f6403e210b1c1ef8c6840a1",
+      "sha256": "5125cbecad5fd8f605b6f79ab190505f1c90b6282991cce19d2116dee2c2d82d",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（4 行）"
+    },
+    {
+      "path": "fla/utils/decorators.py",
+      "upstream": "fla/utils/decorators.py",
+      "upstream_sha256": "2aceb321ef16e942a67e7b675e40bd6c0d0496a898fd201c669729d496de6e9a",
+      "sha256": "a956e49be42b1e2c38d8f7d6976d3af34fe95b1fd2c72f7d989aad862a73a4d5",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（3 行）"
+    },
+    {
+      "path": "fla/utils/env.py",
+      "upstream": "fla/utils/env.py",
+      "upstream_sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "modified": null
+    },
+    {
+      "path": "fla/utils/hardware.py",
+      "upstream": "fla/utils/hardware.py",
+      "upstream_sha256": "5203bcd38df89f94419ef0a00f1bfa823894ba8521075282ca59288be43a7ae3",
+      "sha256": "3901ee121ea142a5872ebacb6410a3f06e882f0f48b3aa4aeb40e648011d52d0",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/testing.py",
+      "upstream": "fla/utils/testing.py",
+      "upstream_sha256": "a7901e2417db8e5c9e786fb4483683e818875e783a43e57473771f017cb7466b",
+      "sha256": "cda6b9d42a6342803415d789b9fc75445a2b0d3e0a5755e453e64f86d3aadca8",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_triton.fla（1 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "fla/__init__.py",
+      "stub": "k3x/_stubs/fla_init.py",
+      "reason": "上游 fla/__init__.py 会按字符串 import fla.layers / fla.models（改名后会误加载已安装的 fla）；副本只需要 __version__。",
+      "sha256": "09f04ff71e3ee3ac726e8dc4ad803ae57d6729b6a92f997b5f17496008cd973d"
+    },
+    {
+      "path": "fla/backends.py",
+      "stub": "k3x/_stubs/fla_backends.py",
+      "reason": "上游的运行时后端分发会按字符串动态 import fla.ops.<op>.backends；研读副本只保留默认实现，dispatch 是恒等。",
+      "sha256": "05de16f602a9055f401991061aa140fdf04d2af099af376a71431b3211e75971"
+    }
+  ],
+  "generated": [
+    "fla/ops/__init__.py",
+    "fla/ops/attnres/__init__.py",
+    "fla/ops/utils/__init__.py"
+  ],
+  "warnings": [
+    "源码里有字符串形式的 fla.* 模块名（可能是动态 import），未改写：['fla.utils']"
+  ],
+  "notes": [],
+  "import_prefix": "k3x.attn_res.fla_triton.fla"
+}

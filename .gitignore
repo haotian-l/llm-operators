@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# 本地环境（scripts/setup_env.sh 生成）
+envs/
+.venv/
+
+# profiling 报告体积大，只保留导出的 csv/png
+*.ncu-rep
+*.nsys-rep
+*.sqlite
+*.qdrep
+
+# FIB 的张量数据
+dataset/blob/
+
+# macOS
+.DS_Store

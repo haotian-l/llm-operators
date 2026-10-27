@@ -1,0 +1,98 @@
+{
+  "op": "attn_res",
+  "impl": "fla_gluon",
+  "lang": "gluon",
+  "mode": "python",
+  "description": "FLA 的 AttnRes Gluon 后端（Triton 更底层的方言，显式控制 warp 划分和 cp.async）",
+  "source": {
+    "submodule": "third_party/flash-linear-attention",
+    "url": "https://github.com/fla-org/flash-linear-attention.git",
+    "tag": "v0.6.0",
+    "commit": "413ad2c655ece57b94bc9ddc51fdbd43cf09d984"
+  },
+  "files": [
+    {
+      "path": "fla/ops/attnres/backends/gluon.py",
+      "upstream": "fla/ops/attnres/backends/gluon.py",
+      "upstream_sha256": "1384d065623621b3018a4259c07046505b7ecc6ee095a68d2a438f20fae74f82",
+      "sha256": "738b8700c8f56b5abd7e223aea425ece5013206c2172dd9f0e72b5c503a86dad",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（4 行）"
+    },
+    {
+      "path": "fla/ops/utils/cache.py",
+      "upstream": "fla/ops/utils/cache.py",
+      "upstream_sha256": "a8ffda1ca609efaf366207a87ad5002253d39fd4b5e1fd9446345245d110e6f9",
+      "sha256": "a8ffda1ca609efaf366207a87ad5002253d39fd4b5e1fd9446345245d110e6f9",
+      "modified": null
+    },
+    {
+      "path": "fla/ops/utils/op.py",
+      "upstream": "fla/ops/utils/op.py",
+      "upstream_sha256": "18cfb14ed285d6f4cc664b2d7e2e471d322fc897594eb13c61d179978bc50d0f",
+      "sha256": "fe4161fb0081e4300bea3c563eaa819cb31f00a573fa13233a220a4de03fd29e",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/__init__.py",
+      "upstream": "fla/utils/__init__.py",
+      "upstream_sha256": "faf4ad68120774f1c5735f529884f4ee639caf5e0f6403e210b1c1ef8c6840a1",
+      "sha256": "a3846205adb818dbffc89406c66fbf50a07caca3177db67026669470c2257ce4",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（4 行）"
+    },
+    {
+      "path": "fla/utils/decorators.py",
+      "upstream": "fla/utils/decorators.py",
+      "upstream_sha256": "2aceb321ef16e942a67e7b675e40bd6c0d0496a898fd201c669729d496de6e9a",
+      "sha256": "d1ba8eeeb077b9373dc0b4193a3fb4aec2f103b587cdc57e9da4d12e6be0b38d",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（3 行）"
+    },
+    {
+      "path": "fla/utils/env.py",
+      "upstream": "fla/utils/env.py",
+      "upstream_sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "sha256": "2c965b41300b94aa5c4b6770b7b241bff01d959f1887b2c2eed0830c9b340f63",
+      "modified": null
+    },
+    {
+      "path": "fla/utils/hardware.py",
+      "upstream": "fla/utils/hardware.py",
+      "upstream_sha256": "5203bcd38df89f94419ef0a00f1bfa823894ba8521075282ca59288be43a7ae3",
+      "sha256": "042cec91e8abd7f136922dfaff56ba86320c8794cd2283b8f4454d9b154a9fdf",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（1 行）"
+    },
+    {
+      "path": "fla/utils/testing.py",
+      "upstream": "fla/utils/testing.py",
+      "upstream_sha256": "a7901e2417db8e5c9e786fb4483683e818875e783a43e57473771f017cb7466b",
+      "sha256": "560e3e3cb21941886de06cd144606d5a6a86b9dde2a61621347aae57a6e06d05",
+      "modified": "import 前缀 fla -> k3x.attn_res.fla_gluon.fla（1 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "fla/__init__.py",
+      "stub": "k3x/_stubs/fla_init.py",
+      "reason": "上游 fla/__init__.py 会按字符串 import fla.layers / fla.models（改名后会误加载已安装的 fla）；副本只需要 __version__。",
+      "sha256": "09f04ff71e3ee3ac726e8dc4ad803ae57d6729b6a92f997b5f17496008cd973d"
+    },
+    {
+      "path": "fla/backends.py",
+      "stub": "k3x/_stubs/fla_backends.py",
+      "reason": "上游的运行时后端分发会按字符串动态 import fla.ops.<op>.backends；研读副本只保留默认实现，dispatch 是恒等。",
+      "sha256": "05de16f602a9055f401991061aa140fdf04d2af099af376a71431b3211e75971"
+    }
+  ],
+  "generated": [
+    "fla/ops/__init__.py",
+    "fla/ops/attnres/__init__.py",
+    "fla/ops/attnres/backends/__init__.py",
+    "fla/ops/utils/__init__.py"
+  ],
+  "warnings": [
+    "源码里有字符串形式的 fla.* 模块名（可能是动态 import），未改写：['fla.utils']"
+  ],
+  "notes": [
+    "上游通过 fla.backends.register 把它注册成 fused_attnres 的替换；副本里 register 是空操作，直接调用其函数"
+  ],
+  "import_prefix": "k3x.attn_res.fla_gluon.fla"
+}

@@ -1,0 +1,32 @@
+{
+  "op": "kda_decode",
+  "impl": "sglang_cutedsl",
+  "lang": "cute-dsl",
+  "mode": "python",
+  "description": "SGLang 的 CuTe DSL KDA kernel，--linear-attn-decode-backend cutedsl 时使用",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "sglang/kernels/ops/attention/cutedsl_kda.py",
+      "upstream": "python/sglang/kernels/ops/attention/cutedsl_kda.py",
+      "upstream_sha256": "ed3ae583b6aebbcaa0725e401ca4e3937e49f8eedffb3aa967a2f3d2d153500c",
+      "sha256": "ed3ae583b6aebbcaa0725e401ca4e3937e49f8eedffb3aa967a2f3d2d153500c",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [
+    "sglang/__init__.py",
+    "sglang/kernels/__init__.py",
+    "sglang/kernels/ops/__init__.py",
+    "sglang/kernels/ops/attention/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.kda_decode.sglang_cutedsl.sglang"
+}

@@ -1,0 +1,69 @@
+{
+  "op": "kda_decode",
+  "impl": "vllm_cuda",
+  "lang": "cuda",
+  "mode": "cpp",
+  "description": "vLLM 原生 fused_kda_decode（CUDA）：conv1d 更新 + 递推 + 门控 + 输出 norm 一个 kernel，K3 在 SM90/SM10x/SM12x 上 decode 的默认路径",
+  "source": {
+    "submodule": "third_party/vllm",
+    "url": "https://github.com/vllm-project/vllm.git",
+    "tag": "v0.32.0",
+    "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be"
+  },
+  "files": [
+    {
+      "path": "core/cuda_compat.h",
+      "upstream": "csrc/core/cuda_compat.h",
+      "upstream_sha256": "07ff1081cb1ee616b4cb84b6ed3e81e536a08865b47f1f7890c8250645716a02",
+      "sha256": "07ff1081cb1ee616b4cb84b6ed3e81e536a08865b47f1f7890c8250645716a02",
+      "modified": null
+    },
+    {
+      "path": "kimi_k3/fused_kda_decode_kernel.cu",
+      "upstream": "csrc/kimi_k3/fused_kda_decode_kernel.cu",
+      "upstream_sha256": "e2521676e41d42acee798ee099ca272b37f9e2387d6510044dff5c68cc5833a9",
+      "sha256": "e2521676e41d42acee798ee099ca272b37f9e2387d6510044dff5c68cc5833a9",
+      "modified": null
+    },
+    {
+      "path": "ops.h",
+      "upstream": "csrc/ops.h",
+      "upstream_sha256": "fb9bf4953f239ccbfdb72069b1117278518af382bcac4b7f6069ad1db2b6270b",
+      "sha256": "fb9bf4953f239ccbfdb72069b1117278518af382bcac4b7f6069ad1db2b6270b",
+      "modified": null
+    },
+    {
+      "path": "torch_utils.h",
+      "upstream": "csrc/torch_utils.h",
+      "upstream_sha256": "f619e1943039a67a3254f7e0679e1f3e0faa9d8fccae795f3b20df9e91a8a429",
+      "sha256": "f619e1943039a67a3254f7e0679e1f3e0faa9d8fccae795f3b20df9e91a8a429",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [],
+  "warnings": [],
+  "notes": [
+    "op schema 在 third_party/vllm/csrc/torch_bindings.cpp（搜 fused_kda_decode），Python 封装在 third_party/vllm/vllm/_custom_ops.py 的 fused_kda_decode",
+    "上游编译：CUDA>=13，arch 9.0a;10.0f;12.0f，--use_fast_math，torch stable ABI（STABLE_TORCH_LIBRARY）",
+    "ops.h 只为了看函数声明；独立编译的胶水代码尚未编写"
+  ],
+  "external_includes": [
+    "array",
+    "cstdint",
+    "cublas_v2.h",
+    "cuda_bf16.h",
+    "cuda_runtime.h",
+    "deque",
+    "hip/hip_runtime.h",
+    "mutex",
+    "optional",
+    "string",
+    "torch/csrc/inductor/aoti_torch/c/shim.h",
+    "torch/csrc/stable/accelerator.h",
+    "torch/csrc/stable/ops.h",
+    "torch/csrc/stable/tensor.h",
+    "torch/headeronly/util/shim_utils.h",
+    "vector"
+  ]
+}

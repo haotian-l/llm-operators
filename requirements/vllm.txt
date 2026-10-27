@@ -1,0 +1,3 @@
+# envs/vllm 的引擎锁定。torch 2.13.0、flashinfer-python 0.7.0.post1 等由 vLLM 自己 pin。
+# 和 third_party/vllm（v0.32.0 = 5df63a7）保持同一版本；升级时两处一起改。
+vllm==0.32.0

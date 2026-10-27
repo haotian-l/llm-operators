@@ -1,0 +1,4 @@
+# 用 --no-deps 安装的包。
+# FLA 唯一的硬依赖是 transformers>=5.6.2，但 kernel 用不到它，不值得为此改动引擎的 pin；
+# einops 两个引擎都已经带了。和 third_party/flash-linear-attention（v0.6.0）保持同一版本。
+flash-linear-attention==0.6.0

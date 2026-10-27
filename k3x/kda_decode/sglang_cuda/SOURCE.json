@@ -1,0 +1,158 @@
+{
+  "op": "kda_decode",
+  "impl": "sglang_cuda",
+  "lang": "cuda",
+  "mode": "cpp",
+  "description": "SGLang 的两个 CUDA KDA decode kernel：kda_fused_decode（conv+递推+gated RMSNorm 全融合，来自 NVIDIA x Moonshot K3 优化包，H∈{3,6,12}）和 kda_packed_decode（只做递推）",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "jit/csrc/attention/kda_fused_decode.cuh",
+      "upstream": "python/sglang/kernels/jit/csrc/attention/kda_fused_decode.cuh",
+      "upstream_sha256": "d0a2078431d967efd252aa8f4a003d08fce03a34b5860d8ef5b922004d11f53e",
+      "sha256": "d0a2078431d967efd252aa8f4a003d08fce03a34b5860d8ef5b922004d11f53e",
+      "modified": null
+    },
+    {
+      "path": "jit/csrc/attention/kda_packed_decode.cuh",
+      "upstream": "python/sglang/kernels/jit/csrc/attention/kda_packed_decode.cuh",
+      "upstream_sha256": "ce915ee6c4f17b5632a010537f06e818ce8f636aaa5af09ff975a0d0ecf8c12d",
+      "sha256": "ce915ee6c4f17b5632a010537f06e818ce8f636aaa5af09ff975a0d0ecf8c12d",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/bits.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/bits.h",
+      "upstream_sha256": "5bab56d2578d151d3224994eeeae0abb939c26a1ac1e84205a1c942dab9cd605",
+      "sha256": "5bab56d2578d151d3224994eeeae0abb939c26a1ac1e84205a1c942dab9cd605",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/math.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/math.cuh",
+      "upstream_sha256": "73e182466976d821f8ad89017fd2492c50ea456d5e7007d4e869cb6730568477",
+      "sha256": "73e182466976d821f8ad89017fd2492c50ea456d5e7007d4e869cb6730568477",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/source_location.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/source_location.h",
+      "upstream_sha256": "300026cbeeabe03b10b0c46b70e2e85b19a743cbe9ff462faa1dff4268cf806e",
+      "sha256": "300026cbeeabe03b10b0c46b70e2e85b19a743cbe9ff462faa1dff4268cf806e",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/tensor.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/tensor.h",
+      "upstream_sha256": "c66eba28e0f7661711947309c12014d2e880025c7d91ff8a7ac544d4ece60ce2",
+      "sha256": "c66eba28e0f7661711947309c12014d2e880025c7d91ff8a7ac544d4ece60ce2",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/tile.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/tile.cuh",
+      "upstream_sha256": "692446727a0353f1eb0d7249f6564d2c79ee6c9066e2c61e2ab450014fb217b7",
+      "sha256": "692446727a0353f1eb0d7249f6564d2c79ee6c9066e2c61e2ab450014fb217b7",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/type.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/type.cuh",
+      "upstream_sha256": "4c72b0892e8d003490bdab2633056172a674bc6a9689be552861564c7aaf8edc",
+      "sha256": "4c72b0892e8d003490bdab2633056172a674bc6a9689be552861564c7aaf8edc",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/utils.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/utils.cuh",
+      "upstream_sha256": "d7e858444067635f6d52f3958be4341e35e5bd0bc6437a21b085ce1a1b2218b9",
+      "sha256": "d7e858444067635f6d52f3958be4341e35e5bd0bc6437a21b085ce1a1b2218b9",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/utils.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/utils.h",
+      "upstream_sha256": "68cd3ec640f9ceaf66f46be99b1e025c2a70dde32ea95ce462a1558af78d3515",
+      "sha256": "68cd3ec640f9ceaf66f46be99b1e025c2a70dde32ea95ce462a1558af78d3515",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/vec.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/vec.cuh",
+      "upstream_sha256": "11224cc483b7fbc93e2bcb1c2092715d80f1fa645920f4c82ee0e1d45a4eb551",
+      "sha256": "11224cc483b7fbc93e2bcb1c2092715d80f1fa645920f4c82ee0e1d45a4eb551",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/warp.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/warp.cuh",
+      "upstream_sha256": "264e64c3f386a70de938ed831f05f7a5f3c4b3ed9cfea58e1fbad433a8f860db",
+      "sha256": "264e64c3f386a70de938ed831f05f7a5f3c4b3ed9cfea58e1fbad433a8f860db",
+      "modified": null
+    },
+    {
+      "path": "ops/attention/kda_fused_decode.py",
+      "upstream": "python/sglang/kernels/ops/attention/kda_fused_decode.py",
+      "upstream_sha256": "0038e4b82f74ff2569a29e09b1b9f4a8d5b0008b2b6784a67152b190f36fe7f3",
+      "sha256": "0038e4b82f74ff2569a29e09b1b9f4a8d5b0008b2b6784a67152b190f36fe7f3",
+      "modified": null
+    },
+    {
+      "path": "ops/attention/kda_packed_decode.py",
+      "upstream": "python/sglang/kernels/ops/attention/kda_packed_decode.py",
+      "upstream_sha256": "518855d312f44ae0ca1bc5f730fd5f26c98e731f9298ddb1e493a3d46edebef2",
+      "sha256": "518855d312f44ae0ca1bc5f730fd5f26c98e731f9298ddb1e493a3d46edebef2",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [],
+  "warnings": [],
+  "notes": [
+    "两个 .py 是上游的 tvm-ffi JIT 封装，只作阅读参考；它们依赖 sglang.kernels.jit 的加载器，没有抽取",
+    "独立编译的胶水代码（tvm_ffi 直接加载 .cuh）尚未编写"
+  ],
+  "external_includes": [
+    "algorithm",
+    "array",
+    "bit",
+    "concepts",
+    "cstddef",
+    "cstdint",
+    "cstdlib",
+    "cuda.h",
+    "cuda_bf16.h",
+    "cuda_fp16.h",
+    "cuda_fp8.h",
+    "cuda_runtime.h",
+    "dlpack/dlpack.h",
+    "hip/hip_bf16.h",
+    "hip/hip_fp16.h",
+    "hip/hip_runtime.h",
+    "initializer_list",
+    "limits",
+    "map",
+    "mutex",
+    "numeric",
+    "optional",
+    "ostream",
+    "ranges",
+    "source_location",
+    "span",
+    "sstream",
+    "string",
+    "string_view",
+    "tvm/ffi/container/tensor.h",
+    "tvm/ffi/dtype.h",
+    "tvm/ffi/extra/c_env_api.h",
+    "tvm/ffi/extra/cuda/device_guard.h",
+    "type_traits",
+    "utility",
+    "version"
+  ]
+}

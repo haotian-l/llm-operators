@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "k3ops"
+version = "0.0.1"
+description = "Kimi K3 operator inventory, benchmarking and profiling"
+requires-python = ">=3.10"
+# GPU 侧依赖（vLLM / SGLang / flashinfer / FLA / flashinfer-bench）由 scripts/setup_env.sh 安装，
+# 这里只放 Mac 和 GPU 环境都能装的轻量包。
+dependencies = [
+  "numpy",
+  "pyyaml>=6",
+]
+
+[project.optional-dependencies]
+dev = ["pandas", "matplotlib", "pydantic>=2", "pytest"]
+
+[tool.setuptools.packages.find]
+# k3x：从上游抽取的 kernel 研读副本（scripts/extract.py 管理）
+include = ["k3ops*", "k3x*"]
+
+[tool.setuptools.package-data]
+"k3x" = ["**/*.cu", "**/*.cuh", "**/*.h", "**/*.json", "**/*.md"]

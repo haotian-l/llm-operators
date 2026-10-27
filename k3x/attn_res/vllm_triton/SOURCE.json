@@ -1,0 +1,52 @@
+{
+  "op": "attn_res",
+  "impl": "vllm_triton",
+  "lang": "triton",
+  "mode": "python",
+  "description": "vLLM 的 attn_res()：残差加法 + 写 block 快照 + AttnRes 混合 + 输出 RMSNorm 融合成一个 Triton kernel；SM10x 且 hidden=7168 时改走 CUDA 版（见 vllm_cuda）",
+  "source": {
+    "submodule": "third_party/vllm",
+    "url": "https://github.com/vllm-project/vllm.git",
+    "tag": "v0.32.0",
+    "commit": "5df63a7203cdb9328d824a27b682e77c7b9928be"
+  },
+  "files": [
+    {
+      "path": "vllm/models/kimi_k3/nvidia/ops/attn_res.py",
+      "upstream": "vllm/models/kimi_k3/nvidia/ops/attn_res.py",
+      "upstream_sha256": "38c4d67cdb8366cd7b959305ddd251c6b9c9fa408e7481d3dac05ebf3b44028c",
+      "sha256": "0d48d3546713b78c7b02eb0bba3bb3bf368b7c1902fb42303e66460d0bf552f1",
+      "modified": "import 前缀 vllm -> k3x.attn_res.vllm_triton.vllm（3 行）"
+    }
+  ],
+  "stubs": [
+    {
+      "path": "vllm/_custom_ops.py",
+      "stub": "k3x/_stubs/vllm_custom_ops_attn_res.py",
+      "reason": "上游 vllm._custom_ops 会加载 vllm 的 _C 扩展并牵出整个 vllm；AttnRes 的 CUDA 版单独抽取在 attn_res/vllm_cuda。",
+      "sha256": "8969babb7a522919ed76064e49f6658b2dd49ad6ff26a4813d7a4461d7934d6e"
+    },
+    {
+      "path": "vllm/platforms/__init__.py",
+      "stub": "k3x/_stubs/vllm_platforms.py",
+      "reason": "上游 vllm.platforms 会牵出整个 vllm；副本只保留 attn_res.py 用到的两个查询，语义照抄上游 CUDA 平台实现。",
+      "sha256": "097d0e13f888c7f3cd2aeebcc62ceaa9c0d8008ecb3afd1514c666b9f7ca128a"
+    },
+    {
+      "path": "vllm/triton_utils/__init__.py",
+      "stub": "k3x/_stubs/vllm_triton_utils.py",
+      "reason": "上游 vllm.triton_utils 会在没有 Triton 时提供占位对象并牵出 vllm 主包；副本直接用 triton。",
+      "sha256": "751cd233c911e117021cfd70b599c2f3aa648fabba3453c9455fbab53ed449f1"
+    }
+  ],
+  "generated": [
+    "vllm/__init__.py",
+    "vllm/models/__init__.py",
+    "vllm/models/kimi_k3/__init__.py",
+    "vllm/models/kimi_k3/nvidia/__init__.py",
+    "vllm/models/kimi_k3/nvidia/ops/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.attn_res.vllm_triton.vllm"
+}

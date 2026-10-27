@@ -1,0 +1,16 @@
+[submodule "third_party/vllm"]
+	path = third_party/vllm
+	url = https://github.com/vllm-project/vllm.git
+	shallow = true
+[submodule "third_party/sglang"]
+	path = third_party/sglang
+	url = https://github.com/sgl-project/sglang.git
+	shallow = true
+[submodule "third_party/flash-linear-attention"]
+	path = third_party/flash-linear-attention
+	url = https://github.com/fla-org/flash-linear-attention.git
+	shallow = true
+[submodule "third_party/flashinfer"]
+	path = third_party/flashinfer
+	url = https://github.com/flashinfer-ai/flashinfer.git
+	shallow = true

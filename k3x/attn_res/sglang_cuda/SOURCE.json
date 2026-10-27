@@ -1,0 +1,185 @@
+{
+  "op": "attn_res",
+  "impl": "sglang_cuda",
+  "lang": "cuda",
+  "mode": "cpp",
+  "description": "SGLang 的 AttnRes TMA 快速路径（CUDA，SM10x/SM11x，H=7168），以及和 reduce-scatter / all-gather 融合的多卡变体",
+  "source": {
+    "submodule": "third_party/sglang",
+    "url": "https://github.com/sgl-project/sglang.git",
+    "tag": "v0.5.22",
+    "commit": "baa9befa381511cd4d56f83980951e5a45fffc6d"
+  },
+  "files": [
+    {
+      "path": "jit/csrc/kimi_k3/attn_res/fused_tma.cuh",
+      "upstream": "python/sglang/kernels/jit/csrc/kimi_k3/attn_res/fused_tma.cuh",
+      "upstream_sha256": "770b71125bda57566062216a916ab240ddd8488d9687e87878fd376c8f0a3090",
+      "sha256": "770b71125bda57566062216a916ab240ddd8488d9687e87878fd376c8f0a3090",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/bits.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/bits.h",
+      "upstream_sha256": "5bab56d2578d151d3224994eeeae0abb939c26a1ac1e84205a1c942dab9cd605",
+      "sha256": "5bab56d2578d151d3224994eeeae0abb939c26a1ac1e84205a1c942dab9cd605",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/distributed/communicator.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/distributed/communicator.cuh",
+      "upstream_sha256": "30d5c75e86e86da7ce99cd6eab85212fdbc71f83a8e3c715c4e9f2c6c1d8986f",
+      "sha256": "30d5c75e86e86da7ce99cd6eab85212fdbc71f83a8e3c715c4e9f2c6c1d8986f",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/distributed/ptx.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/distributed/ptx.cuh",
+      "upstream_sha256": "1ef631431ff74974a5d05758c4af9335cf8937e42ed9f0dc591a8341598be822",
+      "sha256": "1ef631431ff74974a5d05758c4af9335cf8937e42ed9f0dc591a8341598be822",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/ffi.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/ffi.h",
+      "upstream_sha256": "1697906c2a24cb94dec36e3cd0d6ef79e87a5c22967aca926d12f39472942d47",
+      "sha256": "1697906c2a24cb94dec36e3cd0d6ef79e87a5c22967aca926d12f39472942d47",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/math.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/math.cuh",
+      "upstream_sha256": "73e182466976d821f8ad89017fd2492c50ea456d5e7007d4e869cb6730568477",
+      "sha256": "73e182466976d821f8ad89017fd2492c50ea456d5e7007d4e869cb6730568477",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/mbarrier.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/mbarrier.cuh",
+      "upstream_sha256": "17e0aa119ce7307f36ce9745f8a311ac29d67aacd442814230d983124e500b8a",
+      "sha256": "17e0aa119ce7307f36ce9745f8a311ac29d67aacd442814230d983124e500b8a",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/runtime.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/runtime.cuh",
+      "upstream_sha256": "d7c161d2d9eb60cef3b5fc98220487a0f234bfb0e2e7e43a73fad672a8c31642",
+      "sha256": "d7c161d2d9eb60cef3b5fc98220487a0f234bfb0e2e7e43a73fad672a8c31642",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/source_location.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/source_location.h",
+      "upstream_sha256": "300026cbeeabe03b10b0c46b70e2e85b19a743cbe9ff462faa1dff4268cf806e",
+      "sha256": "300026cbeeabe03b10b0c46b70e2e85b19a743cbe9ff462faa1dff4268cf806e",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/tensor.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/tensor.h",
+      "upstream_sha256": "c66eba28e0f7661711947309c12014d2e880025c7d91ff8a7ac544d4ece60ce2",
+      "sha256": "c66eba28e0f7661711947309c12014d2e880025c7d91ff8a7ac544d4ece60ce2",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/tile.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/tile.cuh",
+      "upstream_sha256": "692446727a0353f1eb0d7249f6564d2c79ee6c9066e2c61e2ab450014fb217b7",
+      "sha256": "692446727a0353f1eb0d7249f6564d2c79ee6c9066e2c61e2ab450014fb217b7",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/type.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/type.cuh",
+      "upstream_sha256": "4c72b0892e8d003490bdab2633056172a674bc6a9689be552861564c7aaf8edc",
+      "sha256": "4c72b0892e8d003490bdab2633056172a674bc6a9689be552861564c7aaf8edc",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/utils.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/utils.cuh",
+      "upstream_sha256": "d7e858444067635f6d52f3958be4341e35e5bd0bc6437a21b085ce1a1b2218b9",
+      "sha256": "d7e858444067635f6d52f3958be4341e35e5bd0bc6437a21b085ce1a1b2218b9",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/utils.h",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/utils.h",
+      "upstream_sha256": "68cd3ec640f9ceaf66f46be99b1e025c2a70dde32ea95ce462a1558af78d3515",
+      "sha256": "68cd3ec640f9ceaf66f46be99b1e025c2a70dde32ea95ce462a1558af78d3515",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/vec.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/vec.cuh",
+      "upstream_sha256": "11224cc483b7fbc93e2bcb1c2092715d80f1fa645920f4c82ee0e1d45a4eb551",
+      "sha256": "11224cc483b7fbc93e2bcb1c2092715d80f1fa645920f4c82ee0e1d45a4eb551",
+      "modified": null
+    },
+    {
+      "path": "jit/include/sgl_kernel/warp.cuh",
+      "upstream": "python/sglang/kernels/jit/include/sgl_kernel/warp.cuh",
+      "upstream_sha256": "264e64c3f386a70de938ed831f05f7a5f3c4b3ed9cfea58e1fbad433a8f860db",
+      "sha256": "264e64c3f386a70de938ed831f05f7a5f3c4b3ed9cfea58e1fbad433a8f860db",
+      "modified": null
+    },
+    {
+      "path": "ops/attention/attn_res.py",
+      "upstream": "python/sglang/kernels/ops/attention/attn_res.py",
+      "upstream_sha256": "f3f334636a8a02a9bfe7327a53ca524f8231a25984f3d9e36948930820de8dd4",
+      "sha256": "f3f334636a8a02a9bfe7327a53ca524f8231a25984f3d9e36948930820de8dd4",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [],
+  "warnings": [],
+  "notes": [
+    "attn_res.py 是上游的 tvm-ffi JIT 封装，只作阅读参考"
+  ],
+  "external_includes": [
+    "algorithm",
+    "array",
+    "bit",
+    "cfloat",
+    "concepts",
+    "cstddef",
+    "cstdint",
+    "cstdlib",
+    "cuda.h",
+    "cuda_bf16.h",
+    "cuda_fp16.h",
+    "cuda_fp8.h",
+    "cuda_runtime.h",
+    "dlpack/dlpack.h",
+    "hip/hip_bf16.h",
+    "hip/hip_fp16.h",
+    "hip/hip_runtime.h",
+    "initializer_list",
+    "limits",
+    "map",
+    "memory",
+    "mutex",
+    "numeric",
+    "optional",
+    "ostream",
+    "ranges",
+    "source_location",
+    "span",
+    "sstream",
+    "string",
+    "string_view",
+    "tvm/ffi/container/shape.h",
+    "tvm/ffi/container/tensor.h",
+    "tvm/ffi/dtype.h",
+    "tvm/ffi/extra/c_env_api.h",
+    "tvm/ffi/extra/cuda/device_guard.h",
+    "tvm/ffi/extra/stl.h",
+    "tvm/ffi/object.h",
+    "tvm/ffi/optional.h",
+    "type_traits",
+    "utility",
+    "vector",
+    "version"
+  ]
+}

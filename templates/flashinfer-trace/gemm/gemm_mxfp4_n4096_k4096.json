@@ -1,0 +1,56 @@
+{
+  "name": "gemm_mxfp4_n4096_k4096",
+  "description": "MXFP4 dense GEMM C = A @ B.T (N=4096, K=4096). Inputs A and B are bf16 values pre-snapped to the MXFP4 (E2M1 data + UE8M0 block scale, block size 32) representable grid, so MXFP4 kernels are numerically exact against the high-precision reference.",
+  "op_type": "gemm",
+  "tags": [
+    "status:verified",
+    "quantization:float4_e2m1fn_mxfp4",
+    "fi_api:flashinfer.mm_fp4",
+    "gpu:sm100"
+  ],
+  "axes": {
+    "M": {
+      "type": "var",
+      "description": "Number of input rows (tokens)."
+    },
+    "N": {
+      "type": "const",
+      "value": 4096,
+      "description": "Output columns."
+    },
+    "K": {
+      "type": "const",
+      "value": 4096,
+      "description": "Reduction dimension."
+    }
+  },
+  "inputs": {
+    "A": {
+      "shape": [
+        "M",
+        "K"
+      ],
+      "dtype": "bfloat16",
+      "description": "Input activations on the MXFP4 grid."
+    },
+    "B": {
+      "shape": [
+        "N",
+        "K"
+      ],
+      "dtype": "bfloat16",
+      "description": "Weight matrix on the MXFP4 grid (row-major, used as B.T)."
+    }
+  },
+  "outputs": {
+    "C": {
+      "shape": [
+        "M",
+        "N"
+      ],
+      "dtype": "bfloat16",
+      "description": "Output C = A @ B.T."
+    }
+  },
+  "reference": "import torch\n\n\ndef run(A, B):\n    # C = A @ B.T in high precision; inputs are pre-snapped to the MXFP4 grid.\n    return torch.mm(A.float(), B.float().T).to(torch.bfloat16)\n"
+}

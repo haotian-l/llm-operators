@@ -1,0 +1,31 @@
+{
+  "op": "attn_res",
+  "impl": "torch_naive",
+  "lang": "pytorch",
+  "mode": "python",
+  "description": "FLA 的 AttnRes 参考实现（naive_attnres）：每个残差源 RMSNorm 后和 pseudo-query 打分，沿深度做 softmax 再加权求和，可选再接一个输出 RMSNorm",
+  "source": {
+    "submodule": "third_party/flash-linear-attention",
+    "url": "https://github.com/fla-org/flash-linear-attention.git",
+    "tag": "v0.6.0",
+    "commit": "413ad2c655ece57b94bc9ddc51fdbd43cf09d984"
+  },
+  "files": [
+    {
+      "path": "fla/ops/attnres/naive.py",
+      "upstream": "fla/ops/attnres/naive.py",
+      "upstream_sha256": "9d5e163f3fef7d1c1f46c23317ba4a57de5f131d9d40fe01aeb3e84028746b43",
+      "sha256": "9d5e163f3fef7d1c1f46c23317ba4a57de5f131d9d40fe01aeb3e84028746b43",
+      "modified": null
+    }
+  ],
+  "stubs": [],
+  "generated": [
+    "fla/__init__.py",
+    "fla/ops/__init__.py",
+    "fla/ops/attnres/__init__.py"
+  ],
+  "warnings": [],
+  "notes": [],
+  "import_prefix": "k3x.attn_res.torch_naive.fla"
+}

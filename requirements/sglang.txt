@@ -1,0 +1,4 @@
+# envs/sglang 的引擎锁定。torch 2.14.1、flashinfer-python 0.7.1、sglang-kernel 0.4.9、
+# sgl-deep-gemm 0.2.2 等由 SGLang 自己 pin。
+# 和 third_party/sglang（v0.5.22 = baa9bef）保持同一版本；升级时两处一起改。
+sglang==0.5.22
